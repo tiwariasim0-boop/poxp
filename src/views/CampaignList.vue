@@ -278,13 +278,6 @@ const filteredCampaigns = computed(() => {
           <!-- Actions -->
           <div class="flex items-center gap-2 shrink-0 text-xs">
             <RouterLink
-              :to="`/campaign/${c.id}/analytics`"
-              class="px-2.5 py-1.5 rounded bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 transition-colors"
-            >
-              Analytics
-            </RouterLink>
-
-            <RouterLink
               :to="`/campaign/${c.id}/setup`"
               class="px-2.5 py-1.5 rounded bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 transition-colors"
             >
