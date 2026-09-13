@@ -64,12 +64,17 @@ Remove-Item "deploy_frontend.tar.gz" -Force -ErrorAction SilentlyContinue
 # 4. Verify
 Write-Host "`n[4/4] Verifying deployment..." -ForegroundColor Yellow
 Start-Sleep -Seconds 1
-$res = Invoke-WebRequest -Uri "http://$DropletIp/" -UseBasicParsing -TimeoutSec 10
-if ($res.StatusCode -eq 200) {
-    Write-Host "`n==================================================" -ForegroundColor Green
-    Write-Host " Frontend successfully deployed and live!" -ForegroundColor Green
-    Write-Host " Access your dashboard at: http://$DropletIp/" -ForegroundColor Green
-    Write-Host "==================================================" -ForegroundColor Green
-} else {
-    Write-Host "Status: $($res.StatusCode)" -ForegroundColor Yellow
+try {
+    $res = Invoke-WebRequest -Uri "https://app.poxp.shop/" -UseBasicParsing -TimeoutSec 10
+    if ($res.StatusCode -eq 200) {
+        Write-Host "`n==================================================" -ForegroundColor Green
+        Write-Host " Frontend successfully deployed and live with SSL!" -ForegroundColor Green
+        Write-Host " Access your dashboard at: https://app.poxp.shop/" -ForegroundColor Green
+        Write-Host "==================================================" -ForegroundColor Green
+    } else {
+        Write-Host "Status: $($res.StatusCode)" -ForegroundColor Yellow
+    }
+} catch {
+    Write-Host "Verification note: $($_.Exception.Message)" -ForegroundColor Yellow
+    Write-Host "Check https://app.poxp.shop/ directly in your browser." -ForegroundColor Cyan
 }
